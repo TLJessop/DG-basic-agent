@@ -34,7 +34,7 @@ def main():
     # Init client
     dg_client = DeepgramClient(DEEPGRAM_API_KEY, config_options)
 
-    connection = dg_client.agent.agent.websocket.v("1")
+    connection = dg_client.agent.websocket.v("1")
 
     # Configure the Agent
     options = SettingsOptions()
