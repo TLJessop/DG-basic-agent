@@ -94,7 +94,11 @@ def main():
           print(f"Conversation Text: {conversation_text}")
           with open("chatlog.txt", 'a') as chatlog:
               chatlog.write(f"{json.dumps(conversation_text.__dict__)}\n")
-    
-    
+
+    def on_welcome(self, welcome, **kwargs):
+          print(f"Welcome message received: {welcome}")
+          with open("chatlog.txt", 'a') as chatlog:
+              chatlog.write(f"Welcome message: {welcome}\n")
+
 if __name__ == "__main__":
     main()
