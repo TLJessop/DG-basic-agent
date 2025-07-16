@@ -201,6 +201,30 @@ def main():
     connection.finish()
     print("Finished")
 
-    
+# WAV Header Functions
+def create_wav_header(sample_rate=24000, bits_per_sample=16, channels=1):
+  """Create a WAV header with the specified parameters"""
+  byte_rate = sample_rate * channels * (bits_per_sample // 8)
+  block_align = channels * (bits_per_sample // 8)
+  header = bytearray(44)
+  # RIFF header
+  header[0:4] = b'RIFF'
+  header[4:8] = b'\x00\x00\x00\x00'  # File size (to be updated later)
+  header[8:12] = b'WAVE'
+  # fmt chunk
+  header[12:16] = b'fmt '
+  header[16:20] = b'\x10\x00\x00\x00'  # Subchunk1Size (16 for PCM)
+  header[20:22] = b'\x01\x00'  # AudioFormat (1 for PCM)
+  header[22:24] = channels.to_bytes(2, 'little')  # NumChannels
+  header[24:28] = sample_rate.to_bytes(4, 'little')  # SampleRate
+  header[28:32] = byte_rate.to_bytes(4, 'little')  # ByteRate
+  header[32:34] = block_align.to_bytes(2, 'little')  # BlockAlign
+  header[34:36] = bits_per_sample.to_bytes(2, 'little')  # BitsPerSample
+  # data chunk
+  header[36:40] = b'data'
+  header[40:44] = b'\x00\x00\x00\x00'  # Subchunk2Size (to be updated later)
+  return header
+
+
 if __name__ == "__main__":
     main()
