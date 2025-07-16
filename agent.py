@@ -115,6 +115,27 @@ def main():
           with open("chatlog.txt", 'a') as chatlog:
               chatlog.write(f"Agent Thinking: {agent_thinking}\n")
 
+    def on_agent_started_speaking(self, agent_started_speaking, **kwargs):
+          nonlocal audio_buffer
+          audio_buffer = bytearray()  # Reset buffer for new response
+          print(f"Agent Started Speaking: {agent_started_speaking}")
+          with open("chatlog.txt", 'a') as chatlog:
+              chatlog.write(f"Agent Started Speaking: {agent_started_speaking}\n")
+
+    def on_close(self, close, **kwargs):
+        print(f"Connection closed: {close}")
+        with open("chatlog.txt", 'a') as chatlog:
+            chatlog.write(f"Connection closed: {close}\n")
+
+    def on_error(self, error, **kwargs):
+        print(f"Error: {error}")
+        with open("chatlog.txt", 'a') as chatlog:
+            chatlog.write(f"Error: {error}\n")
+
+    def on_unhandled(self, unhandled, **kwargs):
+        print(f"Unhandled event: {unhandled}")
+        with open("chatlog.txt", 'a') as chatlog:
+            chatlog.write(f"Unhandled event: {unhandled}\n")
 
 if __name__ == "__main__":
     main()
