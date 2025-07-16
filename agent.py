@@ -137,5 +137,19 @@ def main():
         with open("chatlog.txt", 'a') as chatlog:
             chatlog.write(f"Unhandled event: {unhandled}\n")
 
+    # Register handlers
+    connection.on(AgentWebSocketEvents.AudioData, on_audio_data)
+    connection.on(AgentWebSocketEvents.AgentAudioDone, on_agent_audio_done)
+    connection.on(AgentWebSocketEvents.ConversationText, on_conversation_text)
+    connection.on(AgentWebSocketEvents.Welcome, on_welcome)
+    connection.on(AgentWebSocketEvents.SettingsApplied, on_settings_applied)
+    connection.on(AgentWebSocketEvents.UserStartedSpeaking, on_user_started_speaking)
+    connection.on(AgentWebSocketEvents.AgentThinking, on_agent_thinking)
+    connection.on(AgentWebSocketEvents.AgentStartedSpeaking, on_agent_started_speaking)
+    connection.on(AgentWebSocketEvents.Close, on_close)
+    connection.on(AgentWebSocketEvents.Error, on_error)
+    connection.on(AgentWebSocketEvents.Unhandled, on_unhandled)
+    print("Event handlers registered")
+
 if __name__ == "__main__":
     main()
