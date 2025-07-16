@@ -65,9 +65,36 @@ def main():
     keep_alive_thread = threading.Thread(target=send_keep_alive, daemon=True)
     keep_alive_thread.start()
 
+    # Setup Event Handlers
+    audio_buffer = bytearray()
+    file_counter = 0
+    processing_complete = False
+    def on_audio_data(self, data, **kwargs):
+        nonlocal audio_buffer
+        audio_buffer.extend(data)
+        print(f"Received audio data from agent: {len(data)} bytes")
+        print(f"Total buffer size: {len(audio_buffer)} bytes")
+        print(f"Audio data format: {data[:16].hex()}...")
 
+    def on_agent_audio_done(self, agent_audio_done, **kwargs):
+        nonlocal audio_buffer, file_counter, processing_complete
+        print(f"AgentAudioDone event received")
+        print(f"Buffer size at completion: {len(audio_buffer)} bytes")
+        print(f"Agent audio done: {agent_audio_done}")
+        if len(audio_buffer) > 0:
+            with open(f"output-{file_counter}.wav", 'wb') as f:
+                f.write(create_wav_header())
+                f.write(audio_buffer)
+            print(f"Created output-{file_counter}.wav")
+        audio_buffer = bytearray()
+        file_counter += 1
+        processing_complete = True
 
-
+    def on_conversation_text(self, conversation_text, **kwargs):
+          print(f"Conversation Text: {conversation_text}")
+          with open("chatlog.txt", 'a') as chatlog:
+              chatlog.write(f"{json.dumps(conversation_text.__dict__)}\n")
+    
     
 if __name__ == "__main__":
     main()
