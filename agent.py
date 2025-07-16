@@ -29,8 +29,14 @@ def main():
         print("Error: DEEPGRAM_API_KEY environment variable is not set.")
         return
         
-    print("Deepgram API key is configured successfully!")
-    # Add your agent initialization and main logic here
+    config_options = DeepgramClientOptions(options={"keepalive": "true"})
+
+    dg_client = DeepgramClient(DEEPGRAM_API_KEY, config_options)
+    
+
+
+
+
 
 
 if __name__ == "__main__":
