@@ -185,5 +185,22 @@ def main():
             time.sleep(0.1)  # Small delay between chunks
     print(f"Total audio data sent: {total_bytes_sent} bytes in {chunk_count} chunks")
     print("Waiting for agent response...")
+
+    # Wait for processing
+    print("Waiting for processing to complete...")
+    start_time = time.time()
+    timeout = 30  # 30 second timeout
+    while not processing_complete and (time.time() - start_time) < timeout:
+        time.sleep(1)
+        print(f"Still waiting for agent response... ({int(time.time() - start_time)}s elapsed)")
+    if not processing_complete:
+        print("Processing timed out after 30 seconds")
+    else:
+        print("Processing complete. Check output-*.wav and chatlog.txt for results.")
+    # Cleanup
+    connection.finish()
+    print("Finished")
+
+    
 if __name__ == "__main__":
     main()
