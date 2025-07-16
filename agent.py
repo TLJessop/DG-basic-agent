@@ -173,5 +173,17 @@ def main():
     sample_rate = int.from_bytes(header[24:28], 'little')
     print(f"Sample rate: {sample_rate}")
     
+    chunk_size = 8192
+    total_bytes_sent = 0
+    chunk_count = 0
+    for chunk in response.iter_content(chunk_size=chunk_size):
+        if chunk:
+            print(f"Sending chunk {chunk_count}: {len(chunk)} bytes")
+            connection.send(chunk)
+            total_bytes_sent += len(chunk)
+            chunk_count += 1
+            time.sleep(0.1)  # Small delay between chunks
+    print(f"Total audio data sent: {total_bytes_sent} bytes in {chunk_count} chunks")
+    print("Waiting for agent response...")
 if __name__ == "__main__":
     main()
