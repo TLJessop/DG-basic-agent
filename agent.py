@@ -33,6 +33,10 @@ def main():
 
     #Init client
     dg_client = DeepgramClient(DEEPGRAM_API_KEY, config_options)
+
+    #Test connection
+    test_connection = dg_client.agent.websocket.v("1")
+    print(test_connection)  
     
 
 
