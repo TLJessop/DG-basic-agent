@@ -164,6 +164,14 @@ def main():
     # Skip WAV header
     header = response.raw.read(44)
     
+    # Verify WAV header
+    if header[0:4] != b'RIFF' or header[8:12] != b'WAVE':
+        print("Invalid WAV header")
+        return
 
+    # Extract sample rate from header
+    sample_rate = int.from_bytes(header[24:28], 'little')
+    print(f"Sample rate: {sample_rate}")
+    
 if __name__ == "__main__":
     main()
