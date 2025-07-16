@@ -158,5 +158,12 @@ def main():
         return
     print("WebSocket connection started successfully")
 
+    # Stream audio
+    print("Downloading and sending audio...")
+    response = requests.get("https://dpgr.am/spacewalk.wav", stream=True)
+    # Skip WAV header
+    header = response.raw.read(44)
+    
+
 if __name__ == "__main__":
     main()
