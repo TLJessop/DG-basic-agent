@@ -18,11 +18,10 @@ from deepgram import (
 from deepgram.clients.agent.v1.websocket.options import SettingsOptions
 
 # Load environment variables from .env file
-env_path = Path('.') / '.env'
-load_dotenv(dotenv_path=env_path)
+load_dotenv()
 
-DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 
+DEEPGRAM_API_KEY = os.getenv("DEEPGRAM-API-KEY")
 
 def main():
     """Main function to initialize and run the Deepgram voice agent."""
