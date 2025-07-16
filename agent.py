@@ -100,5 +100,21 @@ def main():
           with open("chatlog.txt", 'a') as chatlog:
               chatlog.write(f"Welcome message: {welcome}\n")
 
+    def on_settings_applied(self, settings_applied, **kwargs):
+          print(f"Settings applied: {settings_applied}")
+          with open("chatlog.txt", 'a') as chatlog:
+              chatlog.write(f"Settings applied: {settings_applied}\n")
+
+    def on_user_started_speaking(self, user_started_speaking, **kwargs):
+          print(f"User Started Speaking: {user_started_speaking}")
+          with open("chatlog.txt", 'a') as chatlog:
+              chatlog.write(f"User Started Speaking: {user_started_speaking}\n")
+
+    def on_agent_thinking(self, agent_thinking, **kwargs):
+          print(f"Agent Thinking: {agent_thinking}")
+          with open("chatlog.txt", 'a') as chatlog:
+              chatlog.write(f"Agent Thinking: {agent_thinking}\n")
+
+
 if __name__ == "__main__":
     main()
