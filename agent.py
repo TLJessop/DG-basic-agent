@@ -31,6 +31,7 @@ def main():
         
     config_options = DeepgramClientOptions(options={"keepalive": "true"})
 
+    #Init client
     dg_client = DeepgramClient(DEEPGRAM_API_KEY, config_options)
     
 
