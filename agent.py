@@ -151,5 +151,12 @@ def main():
     connection.on(AgentWebSocketEvents.Unhandled, on_unhandled)
     print("Event handlers registered")
 
+    # Start the connection
+    print("Starting WebSocket connection...")
+    if not connection.start(options):
+        print("Failed to start connection")
+        return
+    print("WebSocket connection started successfully")
+
 if __name__ == "__main__":
     main()
